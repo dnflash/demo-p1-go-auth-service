@@ -1,0 +1,88 @@
+swagger: "2.0"
+info:
+  description: "API Docs for Demo Auth Service"
+  version: "1.0.0"
+  title: "Demo Auth Service"
+paths:
+  /login:
+    post:
+      tags:
+       - "Auth"
+      summary: "Login API"
+      parameters:
+      - in: "body"
+        name: "login credential"
+        required: true
+        schema:
+          type: "object"
+          required:
+           - "username"
+           - "password"
+          properties:
+            username:
+              type: "string"
+            password:
+              type: "string"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Access and refresh token"
+          schema:
+            type: "object"
+            properties:
+              accessToken:
+                type: "string"
+              refreshToken:
+                type: "string"
+              refreshTokenId:
+                type: "string"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        500:
+          description: "Internal Server Error"
+  /refresh:
+    post:
+      tags:
+       - "Auth"
+      summary: "Refresh API"
+      parameters:
+      - in: "body"
+        name: "refresh token"
+        required: true
+        schema:
+          type: "object"
+          required:
+           - "refreshToken"
+           - "refreshTokenId"
+          properties:
+            refreshToken:
+              type: "string"
+            refreshTokenId:
+              type: "string"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Access and refresh token"
+          schema:
+            type: "object"
+            properties:
+              accessToken:
+                type: "string"
+              refreshToken:
+                type: "string"
+              refreshTokenId:
+                type: "string"
+        400:
+          description: "Bad Request"
+        401:
+          description: "Unauthorized"
+        500:
+          description: "Internal Server Error"
